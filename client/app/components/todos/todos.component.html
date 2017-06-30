@@ -1,0 +1,131 @@
+<div class="col-md-3">
+    <div *ngIf="this.newCount==0">
+<p class="headerlabel" (click)="changeCount()">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add a new Task </p>
+    </div>
+
+     <div *ngIf="this.newCount==1">
+<p class="headerlabel" (click)="changeCount()">
+    <span class="glyphicon glyphicon-remove"></span>
+    Cancel </p>
+    </div>
+</div>
+
+
+
+<div *ngIf="this.newCount==1" class="add-todo-form text-center ">
+    <div class="form-group">
+        <input class="input form-control clearable" id="searchField" placeholder="{{currString}}" autofocus #newtodotext>
+        <br>
+        <button  style="width:20%; margin-left: 300px" (click)="addNewTodo($event, newtodotext)" class="btn btn-primary btn-block"> Create </button>
+    
+    </div>
+</div>
+
+    <div *ngIf="!this.newCount==1" class="form-group">
+    <br>
+    <br>
+    </div>
+    <fieldset style="border:0px; border-top:1px solid black">
+    <legend > Pending Tasks
+        <span class = "badge" style="margin-bottom: 10px; font-size: 11px">{{pendingCount}}</span> </legend>
+</fieldset> 
+
+
+<div class="todo-list">
+    <div *ngFor="let todo of todosArr">
+        <div *ngIf="!todo.isCompleted">
+        <!-- checkbox !-->
+            <div class="col-md-1 ">
+                <input type="checkbox" id="{{todo.text}}" data-toggle="modal" data-target="#myModal" [checked]="todo.isCompleted"  (click)="changeCheckedStatus(todo)">
+                <label htmlFor="{{todo.text}}"> </label>
+            </div>
+
+  <div id="myModal" role="dialog"  class="modal fade bs-example-modal-sm" >
+    <div *ngIf="todo._id" class="modal-dialog">
+            <div class="alert">
+            1 Item Completed <span class="close" data-dismiss="modal"> &times; </span>
+        </div>
+    </div>
+  </div>
+        <!-- name !-->
+            <div class="col-md-7">
+                <!--{{idstring}}-->
+                <!--{{idcount}}-->
+                <span 
+                    [class.hidden]="todo.isEditMode"> {{todo.text}}
+                </span>
+                <input type="text" [class.hidden]="!todo.isEditMode" [value]="todo.text"
+                (keypress)="updateTodoText($event, todo)">
+                <input type="button" [class.hidden]="!todo.isEditMode" value="Cancel" 
+                (click)="alterEditState(todo, false)" class="btn btn-warning">    
+                
+            </div>
+        <!-- button !-->
+            <div class="col-md-4 btn-toolbar">
+                <input  (click)="deleteTodo(todo)" 
+                type="button" class="btn btn-danger pull-right" value="Delete">
+                
+                <input [class.disabled]="todo.isCompleted" (click)="alterEditState(todo, true)" 
+                type="button" class="btn btn-default pull-right" value="Edit">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <br>
+    <br>
+</div>
+
+
+    <div *ngIf="!this.newCount==1" class="form-group">
+    <br>
+    <br>
+    </div>
+    <fieldset style="border:0px; border-top:1px solid black">
+        
+    <legend > Completed Tasks
+        <span class = "badge" style="margin-bottom: 10px; font-size: 11px">{{completedCount}}</span> </legend>
+</fieldset> 
+
+
+<div class="todo-list">
+    <div *ngFor="let todo of todosArr">
+        <div *ngIf="todo.isCompleted">
+        <!-- checkbox !-->
+            <div class="col-md-1 ">
+                <input type="checkbox" id="{{todo.text}}" [checked]="todo.isCompleted"  (click)="changeCheckedStatus(todo)">
+                <label htmlFor="{{todo.text}}"> </label>
+            </div>
+
+
+        <!-- name !-->
+            <div class="col-md-7">
+                <!--{{idstring}}-->
+                <!--{{idcount}}-->
+                <span 
+                    [class.hidden]="todo.isEditMode"> {{todo.text}}
+                </span>
+                <input type="text" [class.hidden]="!todo.isEditMode" [value]="todo.text"
+                (keypress)="updateTodoText($event, todo)">
+                <input type="button" [class.hidden]="!todo.isEditMode" value="Cancel" 
+                (click)="alterEditState(todo, false)" class="btn btn-warning">    
+                
+            </div>
+        <!-- button !-->
+            <div class="col-md-4 btn-toolbar">
+                <input  (click)="deleteTodo(todo)" 
+                type="button" class="btn btn-danger pull-right" value="Delete">
+                
+                <input [class.disabled]="todo.isCompleted" (click)="alterEditState(todo, true)" 
+                type="button" class="btn btn-default pull-right" value="Edit">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

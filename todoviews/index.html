@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>agendum.io</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+     <script src="bower_components/jquery/dist/jquery.js"> </script>
+     <script src="bower_components/bootstrap/dist/js/bootstrap.js"> </script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <body onload="myFunction()" style="margin:0;">
+
+  <div id="loader">
+
+  </div>
+
+  <div style="display:none;" id="myDiv" class="animate-bottom">
+    <base href="/">
+      <my-app></my-app>
+  </div>
+
+
+  <script>
+    var myVar;
+
+    function myFunction() {
+        myVar = setTimeout(showPage, 3000);
+    }
+
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }
+  </script>
+
+  <script>
+function tog(v){return v?'addClass':'removeClass';} 
+
+$(document).on('input', '.clearable', function(){
+    $(this)[tog(this.value)]('x');
+}).on('mousemove', '.x', function( e ){
+    $(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+}).on('touchstart click', '.onX', function( ev ){
+    ev.preventDefault();
+    $(this).removeClass('x onX').val('').change();
+});
+
+</script>
+
+  </body>
+
+  </body>
+
+
+  <!-- 3. Display the application -->
+  <body>
+    
+   <div class="loader">
+    </div>
+    
+  </body>
+</html>
